@@ -1,16 +1,20 @@
+import os
+import pandas as pd
+
 from sensors import true_temperature
 from errors import inject_error
 from filter import moving_average_filter
 from controller import fan_control
 from config import SIMULATION_STEPS
 
-import pandas as pd
 
-
-OUTPUT_FILE = "cps_sensor_simulation_results.csv"
+OUTPUT_DIR = "mix_simulation1_result"
+OUTPUT_FILE = os.path.join(OUTPUT_DIR, "cps_sensor_simulation_results.csv")
 
 
 def run_simulation():
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+
     rows = []
     raw_values = []
 
@@ -43,4 +47,4 @@ def run_simulation():
     df = pd.DataFrame(rows)
     df.to_csv(OUTPUT_FILE, index=False)
 
-    print(f"Simulation complete. Saved to {OUTPUT_FILE}")
+    print(f"Simulation 1 complete. Saved to {OUTPUT_FILE}")
